@@ -5,6 +5,16 @@ const app = express();
 const port = 3000;
 
 app.use(express.static("public"));
+// Middleware to handle CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Adjust the origin as needed
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept",
+  );
+  next();
+});
 
 app.get("/proxy/:name", async (req, res) => {
   try {
